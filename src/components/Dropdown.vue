@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
-import {ref, computed, defineEmits, onMounted} from 'vue';
+import {ref, computed, defineEmits, type Ref} from 'vue';
 import usePagination from '../composables/pagination'
 
 const props = withDefaults(defineProps<{
-  modelValue:Object,
+  modelValue:any,
   options:Object[],
   searchByCallback?: Function;
   placeholder?:string;
@@ -17,15 +17,15 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits(['update:modelValue'])
 const toggle = ref(false);
 const search = ref('');
-const element = ref(null);
+const element = ref();
 const filteredOptions = computed(() => 
   props.options.filter(curr =>  props.searchByCallback(curr,search.value))
 );
 const displayOptions = usePagination(element,filteredOptions,20);
 
 
-const searchChanged = e => search.value = e;
-const itemSelected = e => {
+const searchChanged = (e:any) => search.value = e;
+const itemSelected = (e:any) => {
   toggle.value = false;
   emit('update:modelValue', e);
 };
@@ -44,7 +44,7 @@ const itemSelected = e => {
       <slot name="search" :callback="searchChanged"></slot>
 
       <ul class="options" ref="element">
-        <li v-if="displayOptions.length" 
+        <li v-if="displayOptions?.length" 
             v-for="option in displayOptions" 
             @click="e => itemSelected(option)"
             :class="{selected:option.id === props.modelValue?.id}">

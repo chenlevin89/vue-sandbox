@@ -5,15 +5,18 @@ import Search from '@/components/Search.vue';
 import Dropdown from '@/components/Dropdown.vue';
 import DropdownItem from '@/components/DropdownItem.vue';
 
-
 const array = Array.from({length:50}, (_,i) => ({text:`option_${i}`,id:i}));
 const options = ref(array);
-const searchByCallback = (option, term) =>  option.text.indexOf(term) !== -1;
+const searchByCallback = (option:any, term:string) =>  option.text.indexOf(term) !== -1;
 const selected = ref(null);
+
 
 </script>
 
 <template>
+
+
+    <Icon name="search"></Icon>
 
       <Dropdown v-model="selected" :options="options" :searchByCallback="searchByCallback">
 
@@ -31,6 +34,6 @@ const selected = ref(null);
 
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

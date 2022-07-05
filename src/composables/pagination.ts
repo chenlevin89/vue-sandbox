@@ -1,12 +1,12 @@
-import {ref, watchEffect, onUnmounted} from 'vue';
+import {ref, watchEffect, onUnmounted, type ComputedRef, type Ref} from 'vue';
 
-export default function usePagination(element, options, bachSize) {
+export default function usePagination(element:Ref<any>, options:ComputedRef<any[]>, bachSize:number):Ref<any[] | null> {
 
     let index = 1
-    const displayOptions = ref(null);
+    const displayOptions:Ref<any[] | null> = ref(null);
 
-    const scroll = event => {
-        const element = event.target;
+    const scroll = (event:MouseEvent) => {
+        const element = event.target as HTMLElement;
         if (element.scrollHeight - element.scrollTop === element.clientHeight) {
             index++;
             displayOptions.value = options.value.slice(0, index * bachSize)

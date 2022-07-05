@@ -6,7 +6,7 @@ const search = ref('');
 const emit = defineEmits(['search'])
 
 const vFocus = {
-  mounted: (el) => el.focus()
+  mounted: (el:HTMLInputElement) => el.focus()
 }
 
 watch(search, val => emit('search',val));
