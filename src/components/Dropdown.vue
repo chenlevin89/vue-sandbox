@@ -37,7 +37,12 @@ const itemSelected = (e:any) => {
 
   <div class="container">
 
-    <button @click="toggle = !toggle">{{props.modelValue?.text || placeholder}}</button>
+    <div @click="toggle = !toggle">
+      <slot name="placeholder" :data="props.modelValue?.text || placeholder"  >
+        <button>{{props.modelValue?.text || placeholder}}</button>
+      </slot>
+    </div>
+    
 
     <div class="dropdown-menu" v-if="toggle">
 
@@ -66,6 +71,13 @@ const itemSelected = (e:any) => {
 
 <style scoped>
 
+  /* ::v-deep(input[type="search"]){
+    background-color: red;
+  } */
+
+  /* :slotted(input){
+    background-color: blue;
+  } */
   .container{
     width:100%;
     position:relative;
